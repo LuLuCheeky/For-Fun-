@@ -16,16 +16,19 @@ p {
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 15px 30px;         /* Bigger size */
+  font-size: 20px;            /* Larger text */
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  display: block;             /* Makes it a block element */
+  margin: 30px auto;          /* Centers it horizontally */
 }
 
 button:hover {
   background-color: #45a049;
 }
- 
+
+
