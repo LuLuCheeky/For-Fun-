@@ -16,11 +16,11 @@ p {
 }
 
 button {
-  padding: 7px 15px;         /* Bigger size */
-  font-size: 10px;            /* Larger text */
-  background-color: #4CAF50;
+  padding: 10px 20px;         /* Bigger size */
+  font-size: 13px;            /* Larger text */
+  background-color: #9c9c9c;
   color: white;
-  border: none;
+  border: white;
   border-radius: 8px;
   cursor: pointer;
   display: block;             /* Makes it a block element */
