@@ -1,5 +1,5 @@
 body {
-  background-color: #f0f8ff;
+  background-color: # fdfc3d;
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 50px;
@@ -16,8 +16,8 @@ p {
 }
 
 button {
-  padding: 15px 30px;         /* Bigger size */
-  font-size: 20px;            /* Larger text */
+  padding: 7px 15px;         /* Bigger size */
+  font-size: 10px;            /* Larger text */
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -28,7 +28,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #bfbfae;
 }
 
 
