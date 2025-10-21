@@ -9,5 +9,5 @@ function incrementCounter() {
 
   setTimeout(() => {
     button.classList.remove("animate");
-  }, 300);
+  }, 300); // match animation duration
 }
