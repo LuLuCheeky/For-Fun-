@@ -14,7 +14,9 @@ p {
   color: white;
   font-size: 22px;
   font-family: Arial, sans-serif;
+  text-shadow: none;
 }
+
 
 button {
   padding: 15px 25px;
