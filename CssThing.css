@@ -2,12 +2,7 @@ body {
   background-color: #fffe42;
   font-family: Arial, sans-serif;
   text-align: center;
-  padding: 50px 20px;
-  margin: 0;
-}
-
-header, main, footer {
-  margin-bottom: 40px;
+  padding: 50px;
 }
 
 h1 {
@@ -18,8 +13,8 @@ h1 {
 p {
   color: white;
   font-size: 22px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
-               -1px 1px 0 #000, 1px 1px 0 #000;
+  font-family: Arial, sans-serif; /* Match h1 font */
+  text-shadow: none; /* Remove shadow */
 }
 
 button {
@@ -27,46 +22,15 @@ button {
   font-size: 20px;
   background-color: #9c9c9c;
   color: white;
+  outline: none; 
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin: 15px 10px;
+  display: block;
+  margin: 30px auto;
   transition: background-color 0.3s ease;
 }
 
+/* Hover effect: only background changes */
 button:hover {
-  background-color: #bfbfbf;
-}
-
-button.animate {
-  animation: growShrink 0.3s ease;
-}
-
-@keyframes growShrink {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-button.reset {
-  background-color: #ff6b6b;
-}
-
-button.reset:hover {
-  background-color: #ff8787;
-}
-
-.banner {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000;
-  animation: scrollLeft 10s linear infinite;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-@keyframes scrollLeft {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
+  background-color: #bfbfbf; /* lighter
