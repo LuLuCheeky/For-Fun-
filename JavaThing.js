@@ -1,41 +1,40 @@
-// Load the counter from localStorage or default to 0
 let count = parseInt(localStorage.getItem("clickCount")) || 0;
 
-// Update the counter display on page load
 document.addEventListener("DOMContentLoaded", () => {
-  const counterEl = document.getElementById("counter");
-  if (counterEl) {
-    counterEl.innerText = `Button clicked ${count} times`;
-  }
+  updateCounterDisplay();
 });
 
-// Increment counter and animate button
-function incrementCounter() {
-  count++;
-  localStorage.setItem("clickCount", count); // Save to localStorage
-
+function updateCounterDisplay() {
   const counterEl = document.getElementById("counter");
   if (counterEl) {
-    counterEl.innerText = `Button clicked ${count} times`;
+    counterEl.innerText = `Button clicked ${count} time${count !== 1 ? "s" : ""}`;
   }
+}
+
+function incrementCounter() {
+  count++;
+  localStorage.setItem("clickCount", count);
+  updateCounterDisplay();
 
   const button = document.querySelector("button");
   if (button) {
     button.classList.add("animate");
-
-    setTimeout(() => {
-      button.classList.remove("animate");
-    }, 300); // match animation duration
+    setTimeout(() => button.classList.remove("animate"), 300);
   }
+}
+
+function resetCounter() {
+  count = 0;
+  localStorage.setItem("clickCount", count);
+  updateCounterDisplay();
 }
 
 // Prevent double-tap zoom on mobile
 let lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
+document.addEventListener("touchend", function (event) {
   const now = Date.now();
   if (now - lastTouchEnd <= 300) {
     event.preventDefault();
   }
   lastTouchEnd = now;
 }, false);
-
