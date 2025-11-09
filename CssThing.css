@@ -13,8 +13,7 @@ h1 {
 p {
   color: white;
   font-size: 22px;
-  font-family: Arial, sans-serif; /* Match h1 font */
-  text-shadow: none; /* Remove shadow */
+  font-family: Arial, sans-serif;
 }
 
 button {
