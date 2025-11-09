@@ -17,7 +17,6 @@ p {
   text-shadow: none;
 }
 
-
 button {
   padding: 15px 25px;
   font-size: 20px;
@@ -34,4 +33,17 @@ button {
 
 /* Hover effect: only background changes */
 button:hover {
-  background-color: #bfbfbf; /* lighter
+  background-color: #bfbfbf; /* lighter gray */
+  color: white;
+}
+
+/* Animation keyframes */
+@keyframes growShrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform
