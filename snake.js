@@ -27,7 +27,7 @@ function gameLoop() {
 
 function update() {
 
-    // Prevent movement before game starts
+    // Don't move until player presses a key
     if (velocityX === 0 && velocityY === 0) {
         return;
     }
@@ -37,13 +37,18 @@ function update() {
         y: snake[0].y + velocityY
     };
 
-    // Wrap around walls
-    if (head.x < 0) head.x = tileCount - 1;
-    if (head.x >= tileCount) head.x = 0;
-    if (head.y < 0) head.y = tileCount - 1;
-    if (head.y >= tileCount) head.y = 0;
+    // Wall collision = game over
+    if (
+        head.x < 0 ||
+        head.x >= tileCount ||
+        head.y < 0 ||
+        head.y >= tileCount
+    ) {
+        resetGame();
+        return;
+    }
 
-    // Check collision with body
+    // Snake body collision
     for (let i = 0; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
             resetGame();
@@ -71,13 +76,13 @@ function update() {
 
 function draw() {
 
-    // Clear screen
+    // Clear canvas
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw food
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = "#ff0000";
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = "#ff3333";
 
     ctx.fillStyle = "#ff3333";
     ctx.fillRect(
@@ -88,7 +93,7 @@ function draw() {
     );
 
     // Draw snake
-    ctx.shadowBlur = 25;
+    ctx.shadowBlur = 20;
     ctx.shadowColor = "#ffe600";
 
     for (let i = 0; i < snake.length; i++) {
@@ -157,6 +162,7 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
+// Draw starting screen
 draw();
 
 setInterval(gameLoop, 100);
