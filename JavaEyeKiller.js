@@ -1,9 +1,13 @@
 const body = document.body;
+let isBlack = true;
 
 setInterval(() => {
-  if (body.style.backgroundColor === 'black') {
-    body.style.backgroundColor = 'white';
-  } else {
-    body.style.backgroundColor = 'black';
-  }
-}, 250); 
+  body.style.backgroundColor = isBlack ? 'black' : 'white';
+  isBlack = !isBlack;
+}, 250);const body = document.body;
+let isBlack = true;
+
+setInterval(() => {
+  body.style.backgroundColor = isBlack ? 'black' : 'white';
+  isBlack = !isBlack;
+}, 250);
