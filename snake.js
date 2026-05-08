@@ -27,20 +27,25 @@ function gameLoop() {
 
 function update() {
 
+    // Prevent movement before game starts
+    if (velocityX === 0 && velocityY === 0) {
+        return;
+    }
+
     const head = {
         x: snake[0].x + velocityX,
         y: snake[0].y + velocityY
     };
 
-    // Wall wrap
+    // Wrap around walls
     if (head.x < 0) head.x = tileCount - 1;
     if (head.x >= tileCount) head.x = 0;
     if (head.y < 0) head.y = tileCount - 1;
     if (head.y >= tileCount) head.y = 0;
 
-    // Game over
-    for (let segment of snake) {
-        if (head.x === segment.x && head.y === segment.y) {
+    // Check collision with body
+    for (let i = 0; i < snake.length; i++) {
+        if (head.x === snake[i].x && head.y === snake[i].y) {
             resetGame();
             return;
         }
@@ -50,31 +55,36 @@ function update() {
 
     // Eat food
     if (head.x === food.x && head.y === food.y) {
+
         score++;
         scoreEl.textContent = score;
 
-        food.x = Math.floor(Math.random() * tileCount);
-        food.y = Math.floor(Math.random() * tileCount);
+        food = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        };
+
     } else {
         snake.pop();
     }
 }
 
 function draw() {
-    // Background fade effect
-    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+
+    // Clear screen
+    ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw food
     ctx.shadowBlur = 20;
-    ctx.shadowColor = "#ff4444";
+    ctx.shadowColor = "#ff0000";
 
-    ctx.fillStyle = "#ff2222";
+    ctx.fillStyle = "#ff3333";
     ctx.fillRect(
         food.x * gridSize,
         food.y * gridSize,
-        gridSize,
-        gridSize
+        gridSize - 2,
+        gridSize - 2
     );
 
     // Draw snake
@@ -83,11 +93,7 @@ function draw() {
 
     for (let i = 0; i < snake.length; i++) {
 
-        if (i === 0) {
-            ctx.fillStyle = "#fff176";
-        } else {
-            ctx.fillStyle = "#ffe600";
-        }
+        ctx.fillStyle = i === 0 ? "#fff799" : "#ffe600";
 
         ctx.fillRect(
             snake[i].x * gridSize,
@@ -101,7 +107,11 @@ function draw() {
 }
 
 function resetGame() {
+
+    alert("Game Over!");
+
     snake = [{ x: 10, y: 10 }];
+
     velocityX = 0;
     velocityY = 0;
 
@@ -146,5 +156,7 @@ document.addEventListener("keydown", (e) => {
             break;
     }
 });
+
+draw();
 
 setInterval(gameLoop, 100);
