@@ -1,0 +1,150 @@
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const scoreEl = document.getElementById("score");
+
+const gridSize = 20;
+const tileCount = canvas.width / gridSize;
+
+let snake = [
+    { x: 10, y: 10 }
+];
+
+let velocityX = 0;
+let velocityY = 0;
+
+let food = {
+    x: 15,
+    y: 15
+};
+
+let score = 0;
+
+function gameLoop() {
+    update();
+    draw();
+}
+
+function update() {
+
+    const head = {
+        x: snake[0].x + velocityX,
+        y: snake[0].y + velocityY
+    };
+
+    // Wall wrap
+    if (head.x < 0) head.x = tileCount - 1;
+    if (head.x >= tileCount) head.x = 0;
+    if (head.y < 0) head.y = tileCount - 1;
+    if (head.y >= tileCount) head.y = 0;
+
+    // Game over
+    for (let segment of snake) {
+        if (head.x === segment.x && head.y === segment.y) {
+            resetGame();
+            return;
+        }
+    }
+
+    snake.unshift(head);
+
+    // Eat food
+    if (head.x === food.x && head.y === food.y) {
+        score++;
+        scoreEl.textContent = score;
+
+        food.x = Math.floor(Math.random() * tileCount);
+        food.y = Math.floor(Math.random() * tileCount);
+    } else {
+        snake.pop();
+    }
+}
+
+function draw() {
+    // Background fade effect
+    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw food
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = "#ff4444";
+
+    ctx.fillStyle = "#ff2222";
+    ctx.fillRect(
+        food.x * gridSize,
+        food.y * gridSize,
+        gridSize,
+        gridSize
+    );
+
+    // Draw snake
+    ctx.shadowBlur = 25;
+    ctx.shadowColor = "#ffe600";
+
+    for (let i = 0; i < snake.length; i++) {
+
+        if (i === 0) {
+            ctx.fillStyle = "#fff176";
+        } else {
+            ctx.fillStyle = "#ffe600";
+        }
+
+        ctx.fillRect(
+            snake[i].x * gridSize,
+            snake[i].y * gridSize,
+            gridSize - 2,
+            gridSize - 2
+        );
+    }
+
+    ctx.shadowBlur = 0;
+}
+
+function resetGame() {
+    snake = [{ x: 10, y: 10 }];
+    velocityX = 0;
+    velocityY = 0;
+
+    score = 0;
+    scoreEl.textContent = score;
+}
+
+document.addEventListener("keydown", (e) => {
+
+    switch (e.key.toLowerCase()) {
+
+        case "arrowup":
+        case "w":
+            if (velocityY !== 1) {
+                velocityX = 0;
+                velocityY = -1;
+            }
+            break;
+
+        case "arrowdown":
+        case "s":
+            if (velocityY !== -1) {
+                velocityX = 0;
+                velocityY = 1;
+            }
+            break;
+
+        case "arrowleft":
+        case "a":
+            if (velocityX !== 1) {
+                velocityX = -1;
+                velocityY = 0;
+            }
+            break;
+
+        case "arrowright":
+        case "d":
+            if (velocityX !== -1) {
+                velocityX = 1;
+                velocityY = 0;
+            }
+            break;
+    }
+});
+
+setInterval(gameLoop, 100);
