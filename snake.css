@@ -4,9 +4,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at center, #111 0%, #050505 100%);
-    overflow: hidden;
+    background: radial-gradient(circle, #111 0%, #000 100%);
     font-family: Arial, sans-serif;
+    overflow: hidden;
     color: white;
 }
 
@@ -21,13 +21,12 @@ h1 {
     text-shadow:
         0 0 5px #ffe600,
         0 0 10px #ffe600,
-        0 0 20px #ffea00,
-        0 0 40px #ffea00;
+        0 0 20px #ffe600;
 }
 
 .score-box {
     margin-bottom: 15px;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #fff7a3;
     text-shadow: 0 0 10px #ffe600;
 }
@@ -37,8 +36,7 @@ canvas {
     border: 3px solid #ffe600;
     box-shadow:
         0 0 10px #ffe600,
-        0 0 20px #ffe600,
-        0 0 40px rgba(255, 230, 0, 0.5);
+        0 0 25px #ffe600;
 }
 
 .controls {
