@@ -3,9 +3,9 @@ const body = document.body;
 
 // Toggle between two colors every 500ms
 setInterval(() => {
-  if (body.style.backgroundColor === 'red') {
-    body.style.backgroundColor = 'black';
+  if (body.style.backgroundColor === 'black') {
+    body.style.backgroundColor = 'white';
   } else {
-    body.style.backgroundColor = 'red';
+    body.style.backgroundColor = 'black';
   }
-}, 500); 
+}, 250); 
