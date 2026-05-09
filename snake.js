@@ -37,7 +37,7 @@ function update() {
         y: snake[0].y + velocityY
     };
 
-    // Wall collision = game over
+    // Wall collision
     if (
         head.x < 0 ||
         head.x >= tileCount ||
@@ -48,7 +48,7 @@ function update() {
         return;
     }
 
-    // Snake body collision
+    // Snake collision
     for (let i = 0; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
             resetGame();
@@ -74,14 +74,38 @@ function update() {
     }
 }
 
+function drawGrid() {
+
+    ctx.strokeStyle = "#1a1a1a";
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i < tileCount; i++) {
+
+        // Vertical lines
+        ctx.beginPath();
+        ctx.moveTo(i * gridSize, 0);
+        ctx.lineTo(i * gridSize, canvas.height);
+        ctx.stroke();
+
+        // Horizontal lines
+        ctx.beginPath();
+        ctx.moveTo(0, i * gridSize);
+        ctx.lineTo(canvas.width, i * gridSize);
+        ctx.stroke();
+    }
+}
+
 function draw() {
 
     // Clear canvas
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Draw grid
+    drawGrid();
+
     // Draw food
-    ctx.shadowBlur = 15;
+    ctx.shadowBlur = 12;
     ctx.shadowColor = "#ff3333";
 
     ctx.fillStyle = "#ff3333";
@@ -92,13 +116,16 @@ function draw() {
         gridSize - 2
     );
 
-    // Draw snake
-    ctx.shadowBlur = 20;
+    // Draw snake with yellow gradient trail
+    ctx.shadowBlur = 15;
     ctx.shadowColor = "#ffe600";
 
     for (let i = 0; i < snake.length; i++) {
 
-        ctx.fillStyle = i === 0 ? "#fff799" : "#ffe600";
+        // Gradient effect
+        const brightness = 90 - (i * 3);
+
+        ctx.fillStyle = `hsl(50, 100%, ${Math.max(brightness, 35)}%)`;
 
         ctx.fillRect(
             snake[i].x * gridSize,
@@ -162,7 +189,7 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// Draw starting screen
+// Initial draw
 draw();
 
 setInterval(gameLoop, 100);
