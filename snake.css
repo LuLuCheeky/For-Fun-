@@ -18,28 +18,32 @@ h1 {
     color: #ffe600;
     font-size: 3rem;
     letter-spacing: 5px;
-    text-shadow:
-        0 0 5px #ffe600,
-        0 0 10px #ffe600,
-        0 0 20px #ffe600;
+
+    /* Removed neon glow */
+    text-shadow: none;
 }
 
 .score-box {
     margin-bottom: 15px;
     font-size: 1.4rem;
-    color: #fff7a3;
-    text-shadow: 0 0 10px #ffe600;
+    color: #ffe600;
+
+    /* Removed neon glow */
+    text-shadow: none;
 }
 
 canvas {
     background: #0a0a0a;
     border: 3px solid #ffe600;
+
     box-shadow:
-        0 0 10px #ffe600,
-        0 0 25px #ffe600;
+        0 0 10px rgba(255, 230, 0, 0.3);
 }
 
 .controls {
     margin-top: 15px;
-    color: #bbb;
+    color: #ffe600;
+
+    /* Removed neon glow */
+    text-shadow: none;
 }
