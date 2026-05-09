@@ -13,12 +13,39 @@ let snake = [
 let velocityX = 0;
 let velocityY = 0;
 
-let food = {
-    x: 15,
-    y: 15
-};
-
 let score = 0;
+
+let food = generateFood();
+
+function generateFood() {
+
+    let newFood;
+
+    while (true) {
+
+        newFood = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        };
+
+        let touchingSnake = false;
+
+        for (let segment of snake) {
+
+            if (
+                segment.x === newFood.x &&
+                segment.y === newFood.y
+            ) {
+                touchingSnake = true;
+                break;
+            }
+        }
+
+        if (!touchingSnake) {
+            return newFood;
+        }
+    }
+}
 
 function gameLoop() {
     update();
@@ -27,7 +54,7 @@ function gameLoop() {
 
 function update() {
 
-    // Don't move until player presses a key
+    // Wait until movement starts
     if (velocityX === 0 && velocityY === 0) {
         return;
     }
@@ -48,9 +75,13 @@ function update() {
         return;
     }
 
-    // Snake collision
+    // Self collision
     for (let i = 0; i < snake.length; i++) {
-        if (head.x === snake[i].x && head.y === snake[i].y) {
+
+        if (
+            head.x === snake[i].x &&
+            head.y === snake[i].y
+        ) {
             resetGame();
             return;
         }
@@ -59,15 +90,15 @@ function update() {
     snake.unshift(head);
 
     // Eat food
-    if (head.x === food.x && head.y === food.y) {
+    if (
+        head.x === food.x &&
+        head.y === food.y
+    ) {
 
         score++;
         scoreEl.textContent = score;
 
-        food = {
-            x: Math.floor(Math.random() * tileCount),
-            y: Math.floor(Math.random() * tileCount)
-        };
+        food = generateFood();
 
     } else {
         snake.pop();
@@ -76,18 +107,18 @@ function update() {
 
 function drawGrid() {
 
-    ctx.strokeStyle = "#1a1a1a";
+    ctx.strokeStyle = "#2b2b2b";
     ctx.lineWidth = 1;
 
     for (let i = 0; i < tileCount; i++) {
 
-        // Vertical lines
+        // Vertical
         ctx.beginPath();
         ctx.moveTo(i * gridSize, 0);
         ctx.lineTo(i * gridSize, canvas.height);
         ctx.stroke();
 
-        // Horizontal lines
+        // Horizontal
         ctx.beginPath();
         ctx.moveTo(0, i * gridSize);
         ctx.lineTo(canvas.width, i * gridSize);
@@ -97,18 +128,18 @@ function drawGrid() {
 
 function draw() {
 
-    // Clear canvas
+    // Background
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw grid
     drawGrid();
 
-    // Draw food
-    ctx.shadowBlur = 12;
+    // Food
+    ctx.shadowBlur = 15;
     ctx.shadowColor = "#ff3333";
 
     ctx.fillStyle = "#ff3333";
+
     ctx.fillRect(
         food.x * gridSize,
         food.y * gridSize,
@@ -116,16 +147,17 @@ function draw() {
         gridSize - 2
     );
 
-    // Draw snake with yellow gradient trail
-    ctx.shadowBlur = 15;
+    // Snake
+    ctx.shadowBlur = 18;
     ctx.shadowColor = "#ffe600";
 
     for (let i = 0; i < snake.length; i++) {
 
-        // Gradient effect
-        const brightness = 90 - (i * 3);
+        // Yellow gradient trail
+        const brightness = 92 - (i * 3);
 
-        ctx.fillStyle = `hsl(50, 100%, ${Math.max(brightness, 35)}%)`;
+        ctx.fillStyle =
+            `hsl(50, 100%, ${Math.max(brightness, 30)}%)`;
 
         ctx.fillRect(
             snake[i].x * gridSize,
@@ -140,15 +172,19 @@ function draw() {
 
 function resetGame() {
 
-    alert("Game Over!");
+    alert("GAME OVER");
 
-    snake = [{ x: 10, y: 10 }];
+    snake = [
+        { x: 10, y: 10 }
+    ];
 
     velocityX = 0;
     velocityY = 0;
 
     score = 0;
     scoreEl.textContent = score;
+
+    food = generateFood();
 }
 
 document.addEventListener("keydown", (e) => {
@@ -157,39 +193,46 @@ document.addEventListener("keydown", (e) => {
 
         case "arrowup":
         case "w":
+
             if (velocityY !== 1) {
                 velocityX = 0;
                 velocityY = -1;
             }
+
             break;
 
         case "arrowdown":
         case "s":
+
             if (velocityY !== -1) {
                 velocityX = 0;
                 velocityY = 1;
             }
+
             break;
 
         case "arrowleft":
         case "a":
+
             if (velocityX !== 1) {
                 velocityX = -1;
                 velocityY = 0;
             }
+
             break;
 
         case "arrowright":
         case "d":
+
             if (velocityX !== -1) {
                 velocityX = 1;
                 velocityY = 0;
             }
+
             break;
     }
 });
 
-// Initial draw
 draw();
 
 setInterval(gameLoop, 100);
