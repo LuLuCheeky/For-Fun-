@@ -107,7 +107,7 @@ function update() {
 
 function drawGrid() {
 
-    ctx.strokeStyle = "#2b2b2b";
+    ctx.strokeStyle = "#111";
     ctx.lineWidth = 1;
 
     for (let i = 0; i < tileCount; i++) {
@@ -135,9 +135,6 @@ function draw() {
     drawGrid();
 
     // Food
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = "#ff3333";
-
     ctx.fillStyle = "#ff3333";
 
     ctx.fillRect(
@@ -148,12 +145,9 @@ function draw() {
     );
 
     // Snake
-    ctx.shadowBlur = 18;
-    ctx.shadowColor = "#ffe600";
-
     for (let i = 0; i < snake.length; i++) {
 
-        // Yellow gradient trail
+        // Yellow trail
         const brightness = 92 - (i * 3);
 
         ctx.fillStyle =
@@ -166,8 +160,6 @@ function draw() {
             gridSize - 2
         );
     }
-
-    ctx.shadowBlur = 0;
 }
 
 function resetGame() {
