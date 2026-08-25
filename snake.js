@@ -107,7 +107,7 @@ function update() {
 
 function drawGrid() {
 
-    ctx.strokeStyle = "#111";
+    ctx.strokeStyle = "#ffe600";
     ctx.lineWidth = 1;
 
     for (let i = 0; i < tileCount; i++) {
